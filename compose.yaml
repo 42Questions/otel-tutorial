@@ -27,5 +27,22 @@ services:
       depends_on:
         - otel-collector
 
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+       - ./config/grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+    depends_on:
+      - victoria-metrics
+
+  tempo:
+    image: grafana/tempo:latest
+    ports:
+      - "3200:3200"
+    volumes:
+      - ./config/tempo.yaml:/etc/tempo.yaml
+    command: ["-config.file=/etc/tempo.yaml"]
+
 volumes:
   vmdata:

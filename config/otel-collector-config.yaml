@@ -19,6 +19,10 @@ exporters:
     metrics_endpoint: http://victoria-metrics:8428/opentelemetry/v1/metrics
     tls:
       insecure: true
+  otlp/tempo:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
 
 service:
   pipelines:
@@ -26,3 +30,7 @@ service:
       receivers: [otlp]
       processors: [memory_limiter, batch]
       exporters: [otlphttp/victoriametrics]
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlp/tempo]
