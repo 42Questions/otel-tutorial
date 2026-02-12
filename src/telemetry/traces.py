@@ -8,7 +8,7 @@ _LOGGER = logging.getLogger(__name__)
 
 def trace():
     def decorator(func):
-        @wraps
+        @wraps(func)
         def wrapper(*args, **kwargs):
             tracer: Tracer = get_tracer(instrumenting_module_name=APP_NAME, instrumenting_library_version=APP_VERSION)
             with tracer.start_as_current_span(func.__name__) as span:
