@@ -9,7 +9,8 @@ receivers:
 processors:
   memory_limiter:
     limit_mib: 2000
-  batch
+    check_interval: 1s
+  batch:
 
 exporters:
   otlphttp/victoriametrics:
